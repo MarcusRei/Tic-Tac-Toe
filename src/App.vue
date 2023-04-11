@@ -1,17 +1,39 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import GameBoard from "./components/GameBoard.vue";
+import ScoreBoard from "./components/ScoreBoard.vue";
+import StartScreen from "./components/StartScreen.vue";
+
+let points: {
+  playerX: 0;
+  playerO: 0;
+};
+
+let playerX = {
+  name: "",
+};
+
+let playerO = {
+  name: "",
+};
+
+function addPoint() {
+  if ((playerX = win)) {
+    points.playerX++;
+  } else {
+    points.playerO++;
+  }
+}
+
+function showPlayers() {
+  console.log("Spelare O är ", playerO.name, "Spelare X är ", playerX.name);
+}
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <StartScreen></StartScreen>
+  <GameBoard></GameBoard>
+  <ScoreBoard></ScoreBoard>
+  <!-- <button @click="showPlayers">Visa splearnamn!</button> -->
 </template>
 
 <style scoped>
