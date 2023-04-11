@@ -1,7 +1,15 @@
 <script setup lang="ts">
+import { Player } from "../models/Player";
+
 function addSymbol() {
   console.log("Hello");
 }
+
+interface IGameBoardProps {
+  players: Player[];
+}
+
+defineProps<IGameBoardProps>();
 </script>
 <template>
   <h1>GameBoard</h1>

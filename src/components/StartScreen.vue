@@ -11,7 +11,6 @@ let playerO = "";
 
 function addPlayers() {
   players.push(new Player(playerX, 0, "X"), new Player(playerO, 0, "O"));
-  console.log(players);
 
   emit("startGame", players);
 }
