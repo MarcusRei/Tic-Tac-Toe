@@ -1,28 +1,17 @@
 <script setup lang="ts">
 import { Player } from "../models/Player";
 
-function addSymbol() {
-  console.log("Hello");
-}
-
 interface IGameBoardProps {
   players: Player[];
 }
+let tiles = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 defineProps<IGameBoardProps>();
 </script>
 <template>
-  <h1>GameBoard</h1>
+  <h1>Gameboard</h1>
   <section id="gameboard">
-    <div class="playing-square" @click="() => addSymbol()"></div>
-    <div class="playing-square" @click="() => addSymbol()"></div>
-    <div class="playing-square" @click="() => addSymbol()"></div>
-    <div class="playing-square" @click="() => addSymbol()"></div>
-    <div class="playing-square" @click="() => addSymbol()"></div>
-    <div class="playing-square" @click="() => addSymbol()"></div>
-    <div class="playing-square" @click="() => addSymbol()"></div>
-    <div class="playing-square" @click="() => addSymbol()"></div>
-    <div class="playing-square" @click="() => addSymbol()"></div>
+    <div v-for="tile in tiles" class="playing-square"></div>
   </section>
 </template>
 <style scoped>
