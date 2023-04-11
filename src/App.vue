@@ -2,37 +2,22 @@
 import GameBoard from "./components/GameBoard.vue";
 import ScoreBoard from "./components/ScoreBoard.vue";
 import StartScreen from "./components/StartScreen.vue";
+import { Player } from "./models/Player";
 
 let points: {
   playerX: 0;
   playerO: 0;
 };
 
-let playerX = {
-  name: "",
-};
-
-let playerO = {
-  name: "",
-};
-
-function addPoint() {
-  if ((playerX = win)) {
-    points.playerX++;
-  } else {
-    points.playerO++;
-  }
-}
-
-function showPlayers() {
-  console.log("Spelare O är ", playerO.name, "Spelare X är ", playerX.name);
+function startGame(players: Player[]) {
+  console.log(players);
 }
 </script>
 
 <template>
-  <StartScreen></StartScreen>
-  <GameBoard></GameBoard>
-  <ScoreBoard></ScoreBoard>
+  <StartScreen @start-game="startGame"></StartScreen>
+  <!-- <GameBoard></GameBoard> -->
+  <!-- <ScoreBoard></ScoreBoard> -->
   <!-- <button @click="showPlayers">Visa splearnamn!</button> -->
 </template>
 
