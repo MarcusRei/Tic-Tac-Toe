@@ -17,9 +17,13 @@ function startGame(players: Player[]) {
 </script>
 
 <template>
-  <StartScreen @start-game="startGame"></StartScreen>
+  <StartScreen :gameStarted="gameStarted" @start-game="startGame"></StartScreen>
   <GameBoard :players="state" v-if="gameStarted"></GameBoard>
   <!-- <ScoreBoard></ScoreBoard> -->
 </template>
 
-<style scoped></style>
+<style scoped>
+.hidden {
+  display: none;
+}
+</style>

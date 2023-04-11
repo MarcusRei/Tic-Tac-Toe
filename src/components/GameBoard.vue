@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import { Player } from "../models/Player";
 
 interface IGameBoardProps {
@@ -10,10 +11,12 @@ defineProps<IGameBoardProps>();
 </script>
 <template>
   <h1>Gameboard</h1>
+  <p>{{ players[0].name }}'s turn ({{ players[0].symbol }})</p>
   <section id="gameboard">
     <div v-for="tile in tiles" class="playing-square"></div>
   </section>
 </template>
+
 <style scoped>
 #gameboard {
   display: grid;
