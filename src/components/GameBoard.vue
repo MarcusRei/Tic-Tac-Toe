@@ -60,14 +60,15 @@ function markTile(index: number) {
 }
 
 function checkForDraw() {
-  let sumOfEmpty = 0;
+  let sumOfEmptyTiles = 0;
   for (let i = 0; i < tiles.value.length; i++) {
     if (tiles.value[i] === "") {
-      sumOfEmpty++;
+      sumOfEmptyTiles++;
     }
   }
+  console.log(sumOfEmptyTiles);
 
-  if (sumOfEmpty === 0) {
+  if (sumOfEmptyTiles === 0) {
     gameState.value = "draw";
   }
 }
@@ -81,19 +82,10 @@ function changePlayer() {
 }
 
 function checkForWin() {
-  /*   let listToCheck = [];
-
-  for (let i = 0; i < tiles.value.length; i++) {
-    if (tiles.value[i] === currentPlayer.value.symbol) {
-      listToCheck.push(i);
-      const [a, b, c] =
-
-      console.log(a, b, c);
-    }
-  } */
-
+  let sumOfEmptyTiles = 0;
   for (let i = 0; i < possibleWins.length; i++) {
     const [a, b, c] = possibleWins[i];
+    checkForDraw();
     if (
       tiles.value[a] &&
       tiles.value[a] === tiles.value[b] &&
@@ -102,13 +94,19 @@ function checkForWin() {
     ) {
       if (tiles.value[a] === currentPlayer.value.symbol) {
         gameState.value = "win";
+        return tiles.value[a];
       }
-      console.log("Winner is ", tiles.value[a]);
-      return tiles.value[a];
     }
   }
   changePlayer();
-  checkForDraw();
+}
+
+function playAgain() {
+  console.log(tiles.value);
+  for (let i = 0; i < tiles.value.length; i++) {
+    tiles.value[i] = "";
+    gameState.value = "start";
+  }
 }
 </script>
 
@@ -127,7 +125,7 @@ function checkForWin() {
   </section>
   <h1 v-if="gameState === 'draw'">DRAW!!!</h1>
   <h1 v-if="gameState === 'win'">{{ currentPlayer.name }} won!</h1>
-  <button v-if="gameState !== 'start'" @click="">Play again</button>
+  <button v-if="gameState !== 'start'" @click="playAgain">Play again</button>
 </template>
 
 <style scoped>
