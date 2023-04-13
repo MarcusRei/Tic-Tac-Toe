@@ -6,6 +6,8 @@ interface IGameBoardProps {
   players: Player[];
 }
 
+const tileKey = ref(0);
+
 let gameState = ref("start");
 console.log(gameState.value);
 
@@ -97,8 +99,9 @@ function checkForWin() {
 function playAgain() {
   for (let i = 0; i < tiles.value.length; i++) {
     tiles.value[i] = "";
-    gameState.value = "start";
   }
+  gameState.value = "start";
+  tileKey.value++;
 }
 </script>
 
@@ -108,7 +111,7 @@ function playAgain() {
   <section id="gameboard">
     <div
       v-for="(tile, index) in tiles"
-      :key="index"
+      :key="tileKey"
       class="playing-square"
       @click.once="() => markTile(index)"
     >
