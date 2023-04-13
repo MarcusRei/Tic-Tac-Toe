@@ -23,18 +23,10 @@ let possibleWins = [
   [2, 4, 6],
 ];
 
-let line1 = [0, 1, 2];
-let line2 = [3, 4, 5];
-let line3 = [6, 7, 8];
-let line4 = [0, 3, 6];
-let line5 = [1, 4, 7];
-let line6 = [2, 5, 8];
-let line7 = [0, 4, 8];
-let line8 = [2, 4, 6];
-
 let tiles = ref(["", "", "", "", "", "", "", "", ""]);
 
 const props = defineProps<IGameBoardProps>();
+const emit = defineEmits(["point"]);
 
 let currentPlayer = ref(props.players[0]);
 
@@ -94,6 +86,7 @@ function checkForWin() {
     ) {
       if (tiles.value[a] === currentPlayer.value.symbol) {
         gameState.value = "win";
+        emit("point", currentPlayer.value.symbol);
         return tiles.value[a];
       }
     }
@@ -102,7 +95,6 @@ function checkForWin() {
 }
 
 function playAgain() {
-  console.log(tiles.value);
   for (let i = 0; i < tiles.value.length; i++) {
     tiles.value[i] = "";
     gameState.value = "start";
@@ -125,7 +117,9 @@ function playAgain() {
   </section>
   <h1 v-if="gameState === 'draw'">DRAW!!!</h1>
   <h1 v-if="gameState === 'win'">{{ currentPlayer.name }} won!</h1>
+
   <button v-if="gameState !== 'start'" @click="playAgain">Play again</button>
+  <button>Scoreboard</button>
 </template>
 
 <style scoped>
