@@ -32,7 +32,7 @@ function addPlayers() {
         <label for="Player O">Player O</label>
         <input v-model="playerO" name="Player O" type="text" />
       </div>
-      <button>Add player</button>
+      <button>Start game!</button>
     </form>
   </section>
 </template>

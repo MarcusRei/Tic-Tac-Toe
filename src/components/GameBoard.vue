@@ -6,38 +6,128 @@ interface IGameBoardProps {
   players: Player[];
 }
 
-defineProps<IGameBoardProps>();
+let gameState = ref("start");
+console.log(gameState.value);
 
-let tiles = [
-  { clicked: false, symbol: "X" },
-  { clicked: false, symbol: "O" },
-  { clicked: false, symbol: "" },
-  { clicked: false, symbol: "" },
-  { clicked: false, symbol: "" },
-  { clicked: false, symbol: "" },
-  { clicked: false, symbol: "" },
-  { clicked: false, symbol: "" },
-  { clicked: false, symbol: "" },
+let playerXMoves: number[] = [];
+let playerOMoves: number[] = [];
+
+let possibleWins = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
 ];
 
+let line1 = [0, 1, 2];
+let line2 = [3, 4, 5];
+let line3 = [6, 7, 8];
+let line4 = [0, 3, 6];
+let line5 = [1, 4, 7];
+let line6 = [2, 5, 8];
+let line7 = [0, 4, 8];
+let line8 = [2, 4, 6];
+
+let tiles = ref(["", "", "", "", "", "", "", "", ""]);
+
+const props = defineProps<IGameBoardProps>();
+
+let currentPlayer = ref(props.players[0]);
+
 function markTile(index: number) {
-  tiles[index].clicked = true;
-  console.log("You clicked tile " + index);
+  if (gameState.value !== "start") {
+    return;
+  }
+  tiles.value[index] = currentPlayer.value.symbol;
+  //console.log("You clicked tile " + index);
+
+  if (currentPlayer.value.symbol === "X") {
+    playerXMoves.push(index);
+    playerXMoves.sort();
+  } else {
+    playerOMoves.push(index);
+    playerOMoves.sort();
+  }
+
+  console.log("player X moves are:", playerXMoves);
+  console.log("player O moves are:", playerOMoves);
+
+  checkForWin();
+}
+
+function checkForDraw() {
+  let sumOfEmpty = 0;
+  for (let i = 0; i < tiles.value.length; i++) {
+    if (tiles.value[i] === "") {
+      sumOfEmpty++;
+    }
+  }
+
+  if (sumOfEmpty === 0) {
+    gameState.value = "draw";
+  }
+}
+
+function changePlayer() {
+  if (currentPlayer.value === props.players[0]) {
+    currentPlayer.value = props.players[1];
+  } else {
+    currentPlayer.value = props.players[0];
+  }
+}
+
+function checkForWin() {
+  /*   let listToCheck = [];
+
+  for (let i = 0; i < tiles.value.length; i++) {
+    if (tiles.value[i] === currentPlayer.value.symbol) {
+      listToCheck.push(i);
+      const [a, b, c] =
+
+      console.log(a, b, c);
+    }
+  } */
+
+  for (let i = 0; i < possibleWins.length; i++) {
+    const [a, b, c] = possibleWins[i];
+    if (
+      tiles.value[a] &&
+      tiles.value[a] === tiles.value[b] &&
+      tiles.value[b] &&
+      tiles.value[a] === tiles.value[c]
+    ) {
+      if (tiles.value[a] === currentPlayer.value.symbol) {
+        gameState.value = "win";
+      }
+      console.log("Winner is ", tiles.value[a]);
+      return tiles.value[a];
+    }
+  }
+  changePlayer();
+  checkForDraw();
 }
 </script>
+
 <template>
   <h1>Gameboard</h1>
-  <p>{{ players[0].name }}'s turn ({{ players[0].symbol }})</p>
+  <p>{{ currentPlayer.name }}'s turn ({{ currentPlayer.symbol }})</p>
   <section id="gameboard">
     <div
       v-for="(tile, index) in tiles"
       :key="index"
       class="playing-square"
-      @click="() => markTile(index)"
+      @click.once="() => markTile(index)"
     >
-      {{ tile.symbol }}
+      {{ tile }}
     </div>
   </section>
+  <h1 v-if="gameState === 'draw'">DRAW!!!</h1>
+  <h1 v-if="gameState === 'win'">{{ currentPlayer.name }} won!</h1>
+  <button v-if="gameState !== 'start'" @click="">Play again</button>
 </template>
 
 <style scoped>
