@@ -9,7 +9,7 @@ const props = defineProps<IScoreBoardProps>();
 
 let rankedPlayers = ref(
   props.players.sort((a, b) => {
-    return a.score > b.score ? 1 : -1;
+    return a.score < b.score ? 1 : -1;
   })
 );
 console.log("Hello", rankedPlayers);
@@ -18,7 +18,7 @@ console.log("Hello", rankedPlayers);
 <template>
   <h1>Scoreboard</h1>
   <ol id="scoreboard">
-    <li v-for="player in players" class="player">
+    <li v-for="player in rankedPlayers" class="player">
       <h4 class="player__name">{{ player.name }}</h4>
       <div class="score">{{ player.score }}</div>
     </li>
