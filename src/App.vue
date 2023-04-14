@@ -14,12 +14,25 @@ function startGame(players: Player[]) {
 
   state.value = players;
 }
+
+function addPoint(symbol: string) {
+  if (symbol === "X") {
+    state.value[0].score++;
+  } else {
+    state.value[1].score++;
+  }
+  console.log(state.value);
+}
 </script>
 
 <template>
-  <StartScreen @start-game="startGame"></StartScreen>
-  <GameBoard :players="state" v-if="gameStarted"></GameBoard>
+  <StartScreen :gameStarted="gameStarted" @start-game="startGame"></StartScreen>
+  <GameBoard :players="state" v-if="gameStarted" @point="addPoint"></GameBoard>
   <!-- <ScoreBoard></ScoreBoard> -->
 </template>
 
-<style scoped></style>
+<style scoped>
+.hidden {
+  display: none;
+}
+</style>

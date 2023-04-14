@@ -2,6 +2,12 @@
 import { ref } from "vue";
 import { Player } from "../models/Player";
 
+interface IStartScreenProps {
+  gameStarted: boolean;
+}
+
+defineProps<IStartScreenProps>();
+
 const emit = defineEmits(["startGame"]);
 
 let players: Player[] = [];
@@ -17,16 +23,18 @@ function addPlayers() {
 </script>
 
 <template>
-  <h1>StartScreen</h1>
-  <form class="player-input" @submit.prevent="addPlayers">
-    <div class="inputs">
-      <label for="Player X">Player X</label>
-      <input v-model="playerX" name="Player X" type="text" />
-      <label for="Player O">Player O</label>
-      <input v-model="playerO" name="Player O" type="text" />
-    </div>
-    <button>Add player</button>
-  </form>
+  <section :class="{ hidden: gameStarted }">
+    <h1>StartScreen</h1>
+    <form class="player-input" @submit.prevent="addPlayers">
+      <div class="inputs">
+        <label for="Player X">Player X</label>
+        <input v-model="playerX" name="Player X" type="text" />
+        <label for="Player O">Player O</label>
+        <input v-model="playerO" name="Player O" type="text" />
+      </div>
+      <button>Start game!</button>
+    </form>
+  </section>
 </template>
 
 <style scoped>
@@ -42,5 +50,9 @@ function addPlayers() {
 .inputs {
   display: flex;
   flex-direction: column;
+}
+
+.hidden {
+  display: none;
 }
 </style>
