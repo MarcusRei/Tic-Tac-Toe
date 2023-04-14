@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { Player } from "../models/Player";
 
-let players: Player[] = [new Player("Macke", 14), new Player("Adam", 2)];
+let players: Player[] = [
+  new Player("Macke", 14, "X"),
+  new Player("Adam", 2, "O"),
+];
 </script>
 <template>
   <h1>Scoreboard</h1>
