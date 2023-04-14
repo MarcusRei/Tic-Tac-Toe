@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { Player } from "../models/Player";
+import { getFromLS } from "../functions";
 
 interface IStartScreenProps {
   gameStarted: boolean;
@@ -10,13 +11,15 @@ defineProps<IStartScreenProps>();
 
 const emit = defineEmits(["startGame"]);
 
-let players: Player[] = [];
+let players: Player[] = getFromLS("players") || [];
 
 let playerX = "";
 let playerO = "";
 
 function addPlayers() {
-  players.push(new Player(playerX, 0, "X"), new Player(playerO, 0, "O"));
+  if (players.length === 0) {
+    players.push(new Player(playerX, 0, "X"), new Player(playerO, 0, "O"));
+  }
 
   emit("startGame", players);
 }

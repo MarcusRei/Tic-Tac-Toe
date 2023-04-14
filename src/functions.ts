@@ -6,6 +6,6 @@ export function addToLS(key: string, info: any) {
 
 export function getFromLS(key: string) {
   let info = JSON.parse(localStorage.getItem(key)!);
-  console.log(info, " collected from LS!");
+  console.log(key, " collected from LS!");
   return info;
 }
