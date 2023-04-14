@@ -7,6 +7,7 @@ import { Player } from "./models/Player";
 
 let gameStarted = ref(false);
 let state = ref<Player[]>([]);
+let scoreboard = ref(false);
 
 function startGame(players: Player[]) {
   console.log(players);
@@ -23,12 +24,21 @@ function addPoint(symbol: string) {
   }
   console.log(state.value);
 }
+
+function toggleScoreboard() {
+  scoreboard.value = !scoreboard.value;
+}
 </script>
 
 <template>
   <StartScreen :gameStarted="gameStarted" @start-game="startGame"></StartScreen>
-  <GameBoard :players="state" v-if="gameStarted" @point="addPoint"></GameBoard>
-  <!-- <ScoreBoard></ScoreBoard> -->
+  <GameBoard
+    :players="state"
+    v-if="gameStarted"
+    @point="addPoint"
+    @open-scoreboard="toggleScoreboard"
+  ></GameBoard>
+  <ScoreBoard v-if="scoreboard" :players="state"></ScoreBoard>
 </template>
 
 <style scoped>
