@@ -1,24 +1,30 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import { Player } from "../models/Player";
 
-let players: Player[] = [
-  new Player("Macke", 14, "X"),
-  new Player("Adam", 2, "O"),
-];
+interface IScoreBoardProps {
+  players: Player[];
+}
+const props = defineProps<IScoreBoardProps>();
+
+let rankedPlayers = ref(
+  props.players.sort((a, b) => {
+    return a.score < b.score ? 1 : -1;
+  })
+);
+console.log("Hello", rankedPlayers);
 </script>
+
 <template>
   <h1>Scoreboard</h1>
   <ol id="scoreboard">
-    <li class="player">
-      <h4>Player name: {{ players[0].name }}</h4>
-      <div>Points: {{ players[0].score }}</div>
-    </li>
-    <li class="player">
-      <h4>Player name: {{ players[1].name }}</h4>
-      <div>Points: {{ players[1].score }}</div>
+    <li v-for="player in rankedPlayers" class="player">
+      <h4 class="player__name">{{ player.name }}</h4>
+      <div class="score">{{ player.score }}</div>
     </li>
   </ol>
 </template>
+
 <style scoped>
 #scoreboard {
   display: flex;

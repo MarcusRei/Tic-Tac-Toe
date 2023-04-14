@@ -28,7 +28,7 @@ let possibleWins = [
 let tiles = ref(["", "", "", "", "", "", "", "", ""]);
 
 const props = defineProps<IGameBoardProps>();
-const emit = defineEmits(["point"]);
+const emit = defineEmits(["point", "openScoreboard"]);
 
 let currentPlayer = ref(props.players[0]);
 
@@ -103,6 +103,10 @@ function playAgain() {
   gameState.value = "start";
   tileKey.value++;
 }
+
+function openScoreboard() {
+  emit("openScoreboard");
+}
 </script>
 
 <template>
@@ -122,7 +126,7 @@ function playAgain() {
   <h1 v-if="gameState === 'win'">{{ currentPlayer.name }} won!</h1>
 
   <button v-if="gameState !== 'start'" @click="playAgain">Play again</button>
-  <button>Scoreboard</button>
+  <button @click="openScoreboard">Scoreboard</button>
 </template>
 
 <style scoped>
