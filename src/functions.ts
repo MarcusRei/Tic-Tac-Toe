@@ -3,3 +3,9 @@ export function addToLS(key: string, info: any) {
   localStorage.setItem(key, StringifiedInfo);
   console.log(key, " added to LS!");
 }
+
+export function getFromLS(key: string) {
+  let info = JSON.parse(localStorage.getItem(key)!);
+  console.log(info, " collected from LS!");
+  return info;
+}

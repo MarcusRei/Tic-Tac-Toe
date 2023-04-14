@@ -4,7 +4,7 @@ import GameBoard from "./components/GameBoard.vue";
 import ScoreBoard from "./components/ScoreBoard.vue";
 import StartScreen from "./components/StartScreen.vue";
 import { Player } from "./models/Player";
-import { addToLS } from "./functions";
+import { addToLS, getFromLS } from "./functions";
 
 let gameStarted = ref(false);
 let state = ref<Player[]>([]);
