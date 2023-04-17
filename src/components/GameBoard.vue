@@ -11,7 +11,8 @@ const emit = defineEmits(["point", "openScoreboard"]);
 
 const tileKey = ref(0);
 
-let gameState = ref("start");
+let gameState = ref(getFromLS("gameState") || "start");
+addToLS("gameState", gameState.value);
 console.log(gameState.value);
 
 let tiles = ref(getFromLS("tiles") || ["", "", "", "", "", "", "", "", ""]);
@@ -53,6 +54,7 @@ function checkForDraw() {
 
   if (sumOfEmptyTiles === 0) {
     gameState.value = "draw";
+    addToLS("gameState", gameState.value);
   }
 
   addToLS("emptyTiles", sumOfEmptyTiles);
@@ -91,6 +93,7 @@ function checkForWin() {
     ) {
       if (tiles.value[a] === currentPlayer.value.symbol) {
         gameState.value = "win";
+        addToLS("gameState", gameState.value);
         emit("point", currentPlayer.value.symbol);
         addToLS("players", props.players);
         return tiles.value[a];
@@ -104,8 +107,10 @@ function playAgain() {
   for (let i = 0; i < tiles.value.length; i++) {
     tiles.value[i] = "";
   }
+  addToLS("tiles", tiles.value);
   changePlayer();
   gameState.value = "start";
+  addToLS("gameState", gameState.value);
   tileKey.value++;
   addToLS("emptyTiles", 0);
 }
