@@ -4,17 +4,22 @@ import GameBoard from "./components/GameBoard.vue";
 import ScoreBoard from "./components/ScoreBoard.vue";
 import StartScreen from "./components/StartScreen.vue";
 import { Player } from "./models/Player";
+import { addToLS, getFromLS } from "./functions";
 
 let gameStarted = ref(false);
-let state = ref<Player[]>([]);
+let state = ref<Player[]>(getFromLS("players") || []);
 let scoreboard = ref(false);
 let startScreenKey = ref(0);
 
-function startGame(players: Player[]) {
-  console.log(players);
+if (state.value.length > 0) {
   gameStarted.value = true;
+}
 
+function startGame(players: Player[]) {
+  console.log(state.value);
+  gameStarted.value = true;
   state.value = players;
+  addToLS("players", state.value);
 }
 
 function addPoint(symbol: string) {
@@ -34,6 +39,7 @@ function restartGame() {
   state.value = [];
   gameStarted.value = false;
   startScreenKey.value++;
+  localStorage.clear();
 }
 </script>
 
@@ -50,7 +56,7 @@ function restartGame() {
     @open-scoreboard="toggleScoreboard"
   ></GameBoard>
   <ScoreBoard v-if="scoreboard" :players="state"></ScoreBoard>
-  <button @click="restartGame">Restart game</button>
+  <button v-if="gameStarted" @click="restartGame">Reset</button>
 </template>
 
 <style scoped>
