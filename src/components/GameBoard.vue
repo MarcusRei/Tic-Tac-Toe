@@ -104,6 +104,7 @@ function playAgain() {
   for (let i = 0; i < tiles.value.length; i++) {
     tiles.value[i] = "";
   }
+  changePlayer();
   gameState.value = "start";
   tileKey.value++;
   addToLS("emptyTiles", 0);
