@@ -1,21 +1,25 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/-8w725Ou)
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-718a45dd9cf7e7f842a935f5ebbe5719a5e09af4491e668f4dbf3b35d5cca122.svg)](https://classroom.github.com/online_ide?assignment_repo_id=10822963&assignment_repo_type=AssignmentRepo)
-# Inlämningsuppgift Tre-i-rad
+# Tic-Tac-Toe -- Macke says Go!
 
-Denna mall innehåller ett tomt vue-projekt baserat på typescript. Er uppgift är att skapa spelet tre-i-rad med hjälp av denna mall. Eftersom ni inte har någonting att utgå ifrån så har ni fria händer att skapa just er unika lösning.
+## Assignment in Vue
+This was an assignment for the course Javascript fördjupning as part of my education (Frontend developer) at Medieinstitutet.
 
-## Betyg G
+## Setup
+We were given an empty Vue/vite template and asked to create a Tic-tac-toe game.
 
-- Kunna ange spelarnamn för X respektive O
-- Kunna spela ett spel och få en vinnare
-- Inte kunna göra fler drag efter spelet är slut
-- Kunna starta ett nytt spel
-- Använda minst en komponent
+## Criterias for the grades
 
-## Betyg VG
+### Criterias for passing the assignment
 
-- Använda minst tre komponenter för er lösning
-- Spara poänghistorik för spelarna
-- Kunna visa poängstatistiken
-- Kunna stänga webbläsaren och komma tillbaka där spelet avbröts
-- Kunna nollställa statistik och börja om med nya spelare
+- Be able to choose a name for player X and player O
+- Be able to play a game and have a winner
+- When the game is over no player should be able to make any moves
+- Be able to start a new game
+- Use at least one Vue component
+
+### Criterias for extra credit
+
+- Use at least three Vue components
+- Be able to save the game scores
+- Be able to show the game scores over time
+- Be able to shut down the browser and come back to the game and continue where you left off
+- Be able to reset the game, the players and start a new game
