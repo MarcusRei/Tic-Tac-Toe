@@ -4,7 +4,7 @@
 This was an assignment for the course Javascript fördjupning as part of my education (Frontend developer) at Medieinstitutet.
 
 ## Setup
-We were given an empty Vue/vite template and asked to create a Tic-tac-toe game.
+We were given an empty Vue/vite template and asked to create a Tic-tac-toe game in one week.
 
 ## Criterias for the grades
 
